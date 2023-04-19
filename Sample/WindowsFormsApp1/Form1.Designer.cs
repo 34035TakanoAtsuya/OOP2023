@@ -158,6 +158,7 @@ namespace WindowsFormsApp1 {
             this.btPow.TabIndex = 0;
             this.btPow.Text = "計算";
             this.btPow.UseVisualStyleBackColor = true;
+            this.btPow.Click += new System.EventHandler(this.btPow_Click);
             // 
             // Form1
             // 
