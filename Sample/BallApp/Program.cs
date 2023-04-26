@@ -11,7 +11,7 @@ namespace BallApp {
 
         private Timer moveTimer; //タイマー用
         private PictureBox pb;
-        private int cnt = 0;
+
 
         private List<Obj> balls = new List<Obj>(); //ボールインスタンス格納用
         private List<PictureBox> pbs = new List<PictureBox>(); //表示用
@@ -45,9 +45,12 @@ namespace BallApp {
             if(e.Button == MouseButtons.Left) {
                 ballObj = new SoccerBall(e.X - 25, e.Y - 25);
                 pb.Size = new Size(50, 50); //画像の表示サイズ
-            }else {
+                this.Text = "SoccerBall：" + SoccerBall.Cnt + "TennisBall：" + TennisBall.Cnt;
+            }
+            else {
                 ballObj = new TennisBall(e.X - 12, e.Y - 12);
                 pb.Size = new Size(25, 25); //画像の表示サイズ
+                this.Text = "SoccerBall：" + SoccerBall.Cnt + "TennisBall：" + TennisBall.Cnt;
             }
             pb.Image = ballObj.Image;
             pb.Location = new Point((int)ballObj.PosX, (int)ballObj.PosY); //画像の位置
@@ -56,8 +59,6 @@ namespace BallApp {
 
             balls.Add(ballObj);
             pbs.Add(pb);
-
-            this.Text = "BallGame：" + ++cnt;
 
             moveTimer.Start(); //タイマースタート
         }

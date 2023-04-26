@@ -10,6 +10,10 @@ namespace BallApp {
 
         Random random = new Random(); //乱数インスタンス
 
+        private static int cnt;
+
+        public static int Cnt { get => cnt; set => cnt = value; }
+
         //コンストラクタ
         public TennisBall(double xp,double yp) 
             : base(xp,yp,"pic\\tennis_ball.png"){
@@ -17,6 +21,7 @@ namespace BallApp {
             MoveX = (rndX != 0 ? rndX : 1); //乱数で移動量を設定
             int rndY = random.Next(-15, 15);
             MoveY = (rndY != 0 ? rndY : 1); //乱数で移動量を設定
+            cnt++;
         }
 
         //メソッド
