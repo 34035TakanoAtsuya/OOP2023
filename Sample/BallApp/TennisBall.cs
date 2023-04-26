@@ -26,9 +26,14 @@ namespace BallApp {
         }
 
         //メソッド
-        public override void Move() {
-            Console.WriteLine("X座標 = {0},Y座標 = {1}", PosX, PosY);
-            if (PosX > 700 || PosX < 0)
+        public override void Move(PictureBox pbBar, PictureBox pbBall) {
+
+            Rectangle rBar = new Rectangle(pbBar.Location.X, pbBar.Location.Y,
+                                           pbBar.Width, pbBar.Height);
+            Rectangle rBall = new Rectangle(pbBall.Location.X, pbBall.Location.Y,
+                                            pbBall.Width, pbBall.Height);
+
+            if (PosX > 700 || PosX < 0 || rBar.IntersectsWith(rBall))
             {
                 MoveX = -MoveX;
             }
