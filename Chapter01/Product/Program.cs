@@ -54,6 +54,11 @@ namespace ProductSample {
             TimeSpan time = today - birthday;
             Console.WriteLine("あなたが生まれてから今日まで" + time.Days + "日目です。");
             #endregion
+
+            #region 0509演習3
+            string y = birthday.ToString("dddd");
+            Console.WriteLine("あなたは" + y + "に生まれました。");
+            #endregion
         }
     }
 }
