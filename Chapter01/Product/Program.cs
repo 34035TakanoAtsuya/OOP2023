@@ -18,6 +18,7 @@ namespace ProductSample {
             //Console.WriteLine("税込価格" + daifuku.GetPriceIncludingTax());
             #endregion
 
+            #region 0508演習1
             //DateTime date = new DateTime(2023, 5, 8);
             DateTime date = DateTime.Today;
 
@@ -26,11 +27,33 @@ namespace ProductSample {
             //10日後を求める
             DateTime daysAfter10 = date.AddDays(10);
 
-            Console.WriteLine("10日後:" + daysAfter10.Year + "年" + daysAfter10.Month + "月" + daysAfter10.Day + "日");
+            Console.WriteLine("10日後:" 
+                + daysAfter10.Year + "年" 
+                + daysAfter10.Month + "月" 
+                + daysAfter10.Day + "日");
 
             //10日前を求める
             DateTime daysBefore10 = date.AddDays(-10);
-            Console.WriteLine("10日前:" + daysBefore10.Year + "年" + daysBefore10.Month + "月" + daysBefore10.Day + "日");
+            Console.WriteLine("10日前:" 
+                + daysBefore10.Year + "年" 
+                + daysBefore10.Month + "月" 
+                + daysBefore10.Day + "日");
+            #endregion
+
+            #region 0508演習2
+            Console.WriteLine("誕生日を入力");
+            Console.Write("西暦：");
+            int year = int.Parse(Console.ReadLine());
+            Console.Write("月：");
+            int mon = int.Parse(Console.ReadLine());
+            Console.Write("日：");
+            int day = int.Parse(Console.ReadLine());
+            DateTime today = DateTime.Today;
+            DateTime birthday = new DateTime(year, mon, day);
+
+            TimeSpan time = today - birthday;
+            Console.WriteLine("あなたが生まれてから今日まで" + time.Days + "日目です。");
+            #endregion
         }
     }
 }
