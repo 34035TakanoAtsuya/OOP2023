@@ -9,6 +9,8 @@ namespace ProductSample {
     class Program {
         static void Main(string[] args) {
 
+            string[] DayOfWeekJp = { "日曜日","月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" };
+
             #region P26のサンプルプログラム
             //インスタンスの作成
             //Product karinto = new Product(123, "かりんとう", 180);
@@ -56,8 +58,7 @@ namespace ProductSample {
             #endregion
 
             #region 0509演習3
-            string y = birthday.ToString("dddd");
-            Console.WriteLine("あなたは" + y + "に生まれました。");
+            Console.WriteLine(DayOfWeekJp[(int)birthday.DayOfWeek]);
             #endregion
         }
     }
