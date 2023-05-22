@@ -14,7 +14,7 @@ namespace Exercise03 {
             Console.WriteLine("**売上集計**");
             Console.WriteLine("店舗別売り上げ");
             Console.WriteLine("商品カテゴリー別売り上げ");
-            Console.Write("<");
+            Console.Write(">");
             int select = int.Parse(Console.ReadLine());
 
             if (select == 1) {
