@@ -26,23 +26,33 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_1(List<int> numbers) {
-            var exists = numbers.Exists(s => s % 8 == 0 ||  s % 9 == 0);
+            var exists = numbers.Exists(s => s % 8 == 0 || s % 9 == 0);
             if (exists) {
                 Console.WriteLine("存在しています");
-            }else
+            } else
                 Console.WriteLine("存在していません");
         }
 
         private static void Exercise1_2(List<int> numbers) {
-
+            numbers.ForEach(n => Console.WriteLine(n / 2.0));
         }
 
         private static void Exercise1_3(List<int> numbers) {
+            var query = numbers.Where(n => n >= 50);
+            foreach (var n in query) {
+                Console.WriteLine(n);
 
+            //numbers.Where(n => n >= 50).ToList().ForEach(Console.WriteLine);
+            }
         }
 
         private static void Exercise1_4(List<int> numbers) {
+            var list = numbers.Select(n => n * 2).ToList();
+            foreach (var n in list) {
+                Console.WriteLine(n);
 
+            //numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
+            }
         }
     }
 }
