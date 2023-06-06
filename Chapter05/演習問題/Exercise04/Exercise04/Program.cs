@@ -38,5 +38,19 @@ namespace Exercise04 {
             Console.WriteLine("実行時間 = {0}",sw.Elapsed.ToString(@"ss\.fffff"));  //時間表示
 #endif
         }
+
+        //static string ToJapanese(string key){
+        //  switch(key){
+        //    case "Novelist":
+        //        return "作家";
+        //        case "BestWork":
+        //        return "代表作";
+        //        case "Born":
+        //        return "誕生年";
+        //        default:
+        //        return "引数エラー";
+        //  }
+        //    throw new ArgumentException("正しい引数ではありません");        
+
     }
 }
