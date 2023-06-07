@@ -30,18 +30,23 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2(int[] numbers) {
-            
+            var last = numbers.Skip(numbers.Length - 2);
+            foreach (var item in last) {
+                Console.WriteLine(item);
+            }
+
         }
 
         private static void Exercise1_3(int[] numbers) {
-            
+
         }
 
         private static void Exercise1_4(int[] numbers) {
-           
+
         }
 
         private static void Exercise1_5(int[] numbers) {
-           
+
+        }
     }
 }
