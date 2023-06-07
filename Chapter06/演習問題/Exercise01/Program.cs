@@ -45,7 +45,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4(int[] numbers) {
-
+            var take = numbers.OrderBy(x => x).Where(x => x > 0).Take(3);
+            foreach (var item in take) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise1_5(int[] numbers) {
