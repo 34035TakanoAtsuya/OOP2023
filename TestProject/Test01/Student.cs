@@ -1,5 +1,6 @@
 ﻿namespace Test01 {
 
+    //Studentクラス
     public class Student {
 
         //学生の名前
