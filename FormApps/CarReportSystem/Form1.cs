@@ -20,7 +20,7 @@ namespace CarReportSystem {
 
         //追加ボタンが押された時のイベントハンドラー
         private void btAddReport_Click(object sender, EventArgs e) {
-            var cr = new CarReport() {
+            var CarReport = new CarReport() {
                 Date = dtpDate.Value,
                 Author = cbAuthor.Text,
                 CarName = cbCarName.Text,
@@ -28,7 +28,7 @@ namespace CarReportSystem {
                 CarImage = pbCarImage.Image,
             };
 
-            CarReports.Add(cr);
+            CarReports.Add(CarReport);
             dgvCarReports.DataSource = CarReports;
         }
 
