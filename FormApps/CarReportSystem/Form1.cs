@@ -12,6 +12,7 @@ namespace CarReportSystem {
     public partial class Form1 : Form {
         //管理用データ
         BindingList<CarReport> CarReports = new BindingList<CarReport>();
+        private uint mode;
 
         public Form1() {
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace CarReportSystem {
                 statusLabelDisp();
             }
 
-            var carReport = new CarReport{                            //Saleインスタンスを生成
+            var carReport = new CarReport {                            //Saleインスタンスを生成
                 Date = dtpDate.Value,
                 Author = cbAuthor.Text,
                 Maker = getSelectedMaker(),
@@ -44,17 +45,29 @@ namespace CarReportSystem {
                 Report = tbReport.Text,
                 CarImage = pbCarImage.Image,
             };
+
             CarReports.Add(carReport);
-            if (cbAuthor.Items.Contains(cbAuthor.Text) == false) {
-                cbAuthor.Items.Add(cbAuthor.Text);
-            }
-            if (cbCarName.Items.Contains(cbCarName.Text) == false) {
-                cbCarName.Items.Add(cbCarName.Text);
-            }
-            Clear();
+
+            setCbAuthor(cbAuthor.Text); //記録者のコンボボックスの履歴登録処理
+            setCbCarName(cbCarName.Text);   //車名コンボボックスの履歴登録処理
+
+            Clear();    //項目クリア処理
+
             dgvCarReports.CurrentCell = null;
             btModifyReport.Enabled = true;  //修正ボタン
             btDeleteReport.Enabled = true;  //削除ボタン
+        }
+
+        private void setCbCarName(string carname) {
+            if (cbCarName.Items.Contains(carname)) {
+                cbCarName.Items.Add(carname);
+            }
+        }
+
+        private void setCbAuthor(string author) {
+            if (cbAuthor.Items.Contains(author)) {
+                cbAuthor.Items.Add(author);
+            }
         }
 
         //項目クリア
@@ -112,8 +125,9 @@ namespace CarReportSystem {
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
-            ofdImageFileOpen.ShowDialog();
-            pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            if (ofdImageFileOpen.ShowDialog() == DialogResult.OK) {
+                pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -123,34 +137,53 @@ namespace CarReportSystem {
         }
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            CarReports.RemoveAt(dgvCarReports.CurrentRow.Index);
+            DataGridViewSelectedRowCollection src = dgvCarReports.SelectedRows;
+            for (int i = src.Count - 1; i >= 0; i--) {
+                dgvCarReports.Rows.RemoveAt(src[i].Index);
+            }
+            if (dgvCarReports.Rows.Count == 0) {
+                btDeleteReport.Enabled = false;
+                btModifyReport.Enabled = false;
+            }
+            btModifyReport.Enabled = false;
+            btDeleteReport.Enabled = false;
+
             Clear();
         }
 
         //レコード選択時
         private void dgvCarReports_Click(object sender, DataGridViewCellEventArgs e) {
-            dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
-            cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString();
-            setSelectedMaker((CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[1].Value);
-            cbCarName.Text = dgvCarReports.CurrentRow.Cells[3].Value.ToString();
-            tbReport.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString();
-            pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[5].Value;
+            if (0 < dgvCarReports.RowCount) {
+                dgvCarReports.Columns[5].Visible = false;
+                dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
+                cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString();
+                setSelectedMaker((CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[1].Value);
+                cbCarName.Text = dgvCarReports.CurrentRow.Cells[3].Value.ToString();
+                tbReport.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString();
+                pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[5].Value;
 
-            btModifyReport.Enabled = true;  //修正ボタン
-            btDeleteReport.Enabled = true;  //削除ボタン
+                btModifyReport.Enabled = true;  //修正ボタン
+                btDeleteReport.Enabled = true;  //削除ボタン
+            }
         }
 
         //修正ボタンイベントハンドラ
         private void btModifyReport_Click(object sender, EventArgs e) {
-            if (dgvCarReports.Rows.Count != 0) {
-                dgvCarReports.CurrentRow.Cells[0].Value = dtpDate.Value;
-                dgvCarReports.CurrentRow.Cells[1].Value = cbAuthor.Text;
-                dgvCarReports.CurrentRow.Cells[2].Value = getSelectedMaker();
-                dgvCarReports.CurrentRow.Cells[3].Value = cbCarName.Text;
-                dgvCarReports.CurrentRow.Cells[4].Value = tbReport.Text;
-                dgvCarReports.CurrentRow.Cells[5].Value = pbCarImage.Image;
-                dgvCarReports.Refresh();    //一覧更新
+            if (cbAuthor.Text.Equals("")) {
+                statusLabelDisp("記録者を入力してください");
+                return;
+            } else if (cbCarName.Text.Equals("")) {
+                statusLabelDisp("車名を入力してください");
+                return;
+            } else {
+                statusLabelDisp();
             }
+            dgvCarReports.CurrentRow.Cells[0].Value = dtpDate.Value;
+            dgvCarReports.CurrentRow.Cells[1].Value = cbAuthor.Text;
+            dgvCarReports.CurrentRow.Cells[2].Value = getSelectedMaker();
+            dgvCarReports.CurrentRow.Cells[3].Value = cbCarName.Text;
+            dgvCarReports.CurrentRow.Cells[4].Value = tbReport.Text;
+            dgvCarReports.CurrentRow.Cells[5].Value = pbCarImage.Image;
         }
 
         //終了メニュー選択時のイベントハンドラ
@@ -165,6 +198,21 @@ namespace CarReportSystem {
 
         private void btImageDelete_Click(object sender, EventArgs e) {
             pbCarImage.Image = null;
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (cdColor.ShowDialog() == DialogResult.OK) {
+                BackColor = cdColor.Color;
+            }
+        }
+
+        private void btScaleChange_Click(object sender, EventArgs e) {
+            mode++;
+            if(mode > 4) {
+                mode = 0;
+            }
+            mode = mode < 4 ? ++mode : 0;
+            pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
         }
     }
 }
