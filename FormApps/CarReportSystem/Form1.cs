@@ -129,6 +129,7 @@ namespace CarReportSystem {
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
+
             if (ofdImageFileOpen.ShowDialog() == DialogResult.OK) {
                 pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
             }
@@ -136,6 +137,11 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+
+            tsInfo.Text = "";   //情報表示領域のテキストを初期化
+            tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
+            tmTimeUpdate.Start();
+
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             btModifyReport.Enabled = false; //修正ボタン無効
             btDeleteReport.Enabled = false; //削除ボタン無効
@@ -236,6 +242,10 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
+        }
+
+        private void tmTimeUpdate_Tick(object sender, EventArgs e) {
+            tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
         }
     }
 }
