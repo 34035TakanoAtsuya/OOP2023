@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -146,13 +148,20 @@ namespace CarReportSystem {
             btModifyReport.Enabled = false; //修正ボタン無効
             btDeleteReport.Enabled = false; //削除ボタン無効
 
-            //設定ファイルを逆シリアル化して背景を設定
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                settings = serializer.Deserialize(reader) as Settings;
-                BackColor = Color.FromArgb(settings.MainFromColor);
+
+            try {
+                //設定ファイルを逆シリアル化して背景を設定
+                using (var reader = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    settings = serializer.Deserialize(reader) as Settings;
+                    BackColor = Color.FromArgb(settings.MainFromColor);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
+
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
             DataGridViewSelectedRowCollection src = dgvCarReports.SelectedRows;
@@ -170,20 +179,21 @@ namespace CarReportSystem {
         }
 
         //レコード選択時
-        private void dgvCarReports_Click(object sender, DataGridViewCellEventArgs e) {
-            if (0 < dgvCarReports.RowCount) {
-
-                dgvCarReports.Columns[5].Visible = false;
-
-                dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
+        private void dgvCarReports_Click(object sender, EventArgs e) {
+            if (dgvCarReports.RowCount != 0) {
+                dtpDate.Text = dgvCarReports.CurrentRow.Cells[0].Value.ToString();
                 cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString();
                 setSelectedMaker((CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[2].Value);
                 cbCarName.Text = dgvCarReports.CurrentRow.Cells[3].Value.ToString();
                 tbReport.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString();
                 pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[5].Value;
 
-                btModifyReport.Enabled = true;  //修正ボタン
-                btDeleteReport.Enabled = true;  //削除ボタン
+                if (dgvCarReports.CurrentRow != null) {
+                    btModifyReport.Enabled = true;
+                    btDeleteReport.Enabled = true;
+                    btScaleChange.Enabled = true;
+                    btImageDelete.Enabled = true;
+                }
             }
         }
 
@@ -250,13 +260,39 @@ namespace CarReportSystem {
 
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
             if (sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
-
+                try {
+                    //バイナリ形式でシリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(sfdCarRepoSave.FileName, FileMode.Create)){
+                        bf.Serialize(fs, CarReports);
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
         private void 開くOToolStripMenuItem_Click(object sender, EventArgs e) {
             if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
+                try {
+                    //逆シリアル化でバイナリ形式を取り込む
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open)) {
+                        CarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvCarReports.DataSource = null;
+                        dgvCarReports.DataSource = CarReports;
+                        Clear();
+                        dgvCarReports.Columns[5].Visible = false; //画像項目非表示
 
+                        foreach (var carReport in CarReports) {
+                            setCbAuthor(carReport.Author);
+                            setCbCarName(carReport.CarName);
+                        }
+                    }
+                }
+                catch (Exception) {
+                }                                                                                                                                                                                                                                                                                                   
             }
         }
     }
