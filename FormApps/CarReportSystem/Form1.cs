@@ -44,16 +44,17 @@ namespace CarReportSystem {
                 statusLabelDisp();
             }
 
-            var carReport = new CarReport {                            //Saleインスタンスを生成
-                Date = dtpDate.Value,
-                Author = cbAuthor.Text,
-                Maker = getSelectedMaker(),
-                CarName = cbCarName.Text,
-                Report = tbReport.Text,
-                CarImage = pbCarImage.Image,
-            };
+            DataRow newRow = infosys202307DataSet.CarReportTable.NewRow();
 
-            CarReports.Add(carReport);
+            newRow[1] = dtpDate.Value;
+            newRow[2] = cbAuthor.Text;
+            newRow[3] = getSelectedMaker();
+            newRow[4] = cbCarName.Text;
+            newRow[5] = tbReport.Text;
+            newRow[6] = ImageToByteArray(pbCarImage.Image);
+
+            infosys202307DataSet.CarReportTable.Rows.Add(newRow);
+            this.carReportTableTableAdapter.Update(infosys202307DataSet.CarReportTable);
 
             setCbAuthor(cbAuthor.Text); //記録者のコンボボックスの履歴登録処理
             setCbCarName(cbCarName.Text);   //車名コンボボックスの履歴登録処理
@@ -66,13 +67,13 @@ namespace CarReportSystem {
         }
 
         private void setCbCarName(string carname) {
-            if (cbCarName.Items.Contains(carname)) {
+            if (!cbCarName.Items.Contains(carname)) {
                 cbCarName.Items.Add(carname);
             }
         }
 
         private void setCbAuthor(string author) {
-            if (cbAuthor.Items.Contains(author)) {
+            if (!cbAuthor.Items.Contains(author)) {
                 cbAuthor.Items.Add(author);
             }
         }
@@ -167,17 +168,21 @@ namespace CarReportSystem {
 
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            DataGridViewSelectedRowCollection src = dgvCarReports.SelectedRows;
-            for (int i = src.Count - 1; i >= 0; i--) {
-                dgvCarReports.Rows.RemoveAt(src[i].Index);
-            }
-            if (dgvCarReports.Rows.Count == 0) {
-                btDeleteReport.Enabled = false;
-                btModifyReport.Enabled = false;
-            }
-            btModifyReport.Enabled = false;
-            btDeleteReport.Enabled = false;
+            //DataGridViewSelectedRowCollection src = dgvCarReports.SelectedRows;
+            //    for (int i = src.Count - 1; i >= 0; i--) {
+            //        dgvCarReports.Rows.RemoveAt(src[i].Index);
+            //    }
+            //    if (dgvCarReports.Rows.Count == 0) {
+            //        btDeleteReport.Enabled = false;
+            //        btModifyReport.Enabled = false;
+            //    }
+            //    btModifyReport.Enabled = false;
+            //    btDeleteReport.Enabled = false;
 
+            //    Clear();
+
+            dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentRow.Index);
+            this.tableAdapterManager.UpdateAll(this.infosys202307DataSet);
             Clear();
         }
 
@@ -292,11 +297,9 @@ namespace CarReportSystem {
                 setSelectedMaker(dgvCarReports.CurrentRow.Cells[3].Value.ToString());
                 cbCarName.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString();
                 tbReport.Text = dgvCarReports.CurrentRow.Cells[5].Value.ToString();
-                if (!dgvCarReports.CurrentRow.Cells[6].Value.Equals(DBNull.Value)) {
-                    pbCarImage.Image = ByteArrayToImage((Byte[])dgvCarReports.CurrentRow.Cells[6].Value);
-                } else {
-                    pbCarImage.Image = null;
-                }
+                pbCarImage.Image = !dgvCarReports.CurrentRow.Cells[6].Value.Equals(DBNull.Value)
+                                    && ((Byte[])dgvCarReports.CurrentRow.Cells[6].Value).Length != 0 ? 
+                                    ByteArrayToImage((Byte[])dgvCarReports.CurrentRow.Cells[6].Value) : null;
 
                 if (dgvCarReports.CurrentRow != null) {
                     btModifyReport.Enabled = true;
@@ -306,6 +309,7 @@ namespace CarReportSystem {
                 }
             }
         }
+
         // バイト配列をImageオブジェクトに変換
         public static Image ByteArrayToImage(byte[] b) {
             ImageConverter imgconv = new ImageConverter();
@@ -333,6 +337,11 @@ namespace CarReportSystem {
             // TODO: このコード行はデータを 'infosys202307DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202307DataSet.CarReportTable);
             dgvCarReports.ClearSelection(); //選択解除
+
+            foreach (var carReport in infosys202307DataSet.CarReportTable) {
+                setCbAuthor(carReport.Author);
+                setCbCarName(carReport.CarName);
+            }
         }
     }
 }
