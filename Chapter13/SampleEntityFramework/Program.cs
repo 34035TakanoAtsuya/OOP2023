@@ -112,19 +112,39 @@ namespace SampleEntityFramework {
 
 
         private static void Exercise1_2() {
-
+            var books = GetBooks();
+            foreach (var book in books) {
+                Console.WriteLine($"{book.Title} {book.PublishedYear} {book.Author.Name.ToString()}");
+            }
         }
 
         private static void Exercise1_3() {
-
+            using (var db = new BooksDbContext()) {
+                var books = db.Books.Max(s => s.Title.Length);
+                var books1 = db.Books.Where(s => s.Title.Length == books);
+                foreach (var s in books1) {
+                    Console.WriteLine(s.Title);
+                }
+            }
         }
 
         private static void Exercise1_4() {
-
+            using (var db = new BooksDbContext()) {
+                var ob = db.Books.OrderBy(s => s.PublishedYear.Value);
+                var ob1 = ob.Take(3).ToList();
+                foreach (var item in ob1) {
+                    Console.WriteLine($"{item.Title} {item.Author.Name}");
+                }
+            }
         }
 
         private static void Exercise1_5() {
-
+            using (var db = new BooksDbContext()) {
+                var ob = db.Books.OrderBy(s => s.Author.Birthday);
+                foreach (var item in ob) {
+                    Console.WriteLine($"{item.Title} {item.PublishedYear}");
+                }
+            }
         }
 
         // List 13-5
