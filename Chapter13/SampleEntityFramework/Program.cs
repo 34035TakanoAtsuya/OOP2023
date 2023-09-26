@@ -130,9 +130,9 @@ namespace SampleEntityFramework {
 
         private static void Exercise1_4() {
             using (var db = new BooksDbContext()) {
-                var ob = db.Books.OrderBy(s => s.PublishedYear.Value);
-                var ob1 = ob.Take(3).ToList();
-                foreach (var item in ob1) {
+                var books = db.Books.OrderBy(s => s.PublishedYear.Value);
+                var books1 = books.Take(3).ToList();
+                foreach (var item in books1) {
                     Console.WriteLine($"{item.Title} {item.Author.Name}");
                 }
             }
@@ -140,9 +140,15 @@ namespace SampleEntityFramework {
 
         private static void Exercise1_5() {
             using (var db = new BooksDbContext()) {
-                var ob = db.Books.OrderBy(s => s.Author.Birthday);
-                foreach (var item in ob) {
-                    Console.WriteLine($"{item.Title} {item.PublishedYear}");
+                var authors = db.Authors.OrderByDescending(s => s.Birthday);
+
+                foreach (var author in authors.ToArray()) {
+                    Console.WriteLine("{0} {1:yyyy/MM}",author.Name,author.Birthday);
+                    foreach (var book in author.Books) {
+                        Console.WriteLine("{0} {1}", book.Title, book.PublishedYear,
+                                            book.Author,book.Author.Birthday);
+                    }
+                    Console.WriteLine();
                 }
             }
         }
