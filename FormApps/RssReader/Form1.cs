@@ -11,14 +11,19 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace RssReader {
-    public partial class Form1 : Form {
+    public partial class btFavorite : Form {
         //管理データ保存用
         List<ItemData> ItemDatas = new List<ItemData>();
-        public Form1() {
+        public btFavorite() {
             InitializeComponent();
         }
 
         private void btGet_Click(object sender, EventArgs e) {
+            if (tbUrl.Text == "")
+                return;
+
+            lbRssTitle.Items.Clear();   //リストボックスクリア
+
             using (var wc = new WebClient()) {
                 var url = wc.OpenRead(tbUrl.Text);
                 XDocument xdoc = XDocument.Load(url);
@@ -37,6 +42,18 @@ namespace RssReader {
         private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
             var wb = lbRssTitle.SelectedIndex;
             wbBrowser.Navigate(ItemDatas[wb].Link);
+        }
+
+        private void btBack_Click(object sender, EventArgs e) {
+            wbBrowser.GoBack();
+        }
+
+        private void btForward_Click(object sender, EventArgs e) {
+            wbBrowser.GoForward();
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e) {
+            wbBrowser.Refresh();
         }
     }
 }
