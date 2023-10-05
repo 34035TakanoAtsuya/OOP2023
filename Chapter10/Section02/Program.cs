@@ -8,11 +8,6 @@ using System.Text.RegularExpressions;
 namespace Section02 {
     class Program {
         static void Main(string[] args) {
-            //IsMatch01();
-            //IsMatch02();
-            //StartWith();
-            //EndWith();
-            //PerfectMatch();
             PerfectMatch02();
         }
 
