@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F2D91A3-4106-46A6-92E7-C71E333291E1}</ProjectGuid>
+    <ProjectGuid>{CB8204E9-6FC4-4909-AF92-8AB749FDBF42}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Section01</RootNamespace>
-    <AssemblyName>Section01</AssemblyName>
+    <RootNamespace>DistanceConverter</RootNamespace>
+    <AssemblyName>DistanceConverter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Greeting.cs" />
-    <Compile Include="GreetingBase.cs" />
-    <Compile Include="IGreeting.cs" />
+    <Compile Include="ConcreteConverter.cs" />
+    <Compile Include="ConverterBase.cs" />
+    <Compile Include="ConverterFactory.cs" />
+    <Compile Include="DistanceConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
