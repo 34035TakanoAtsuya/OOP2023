@@ -55,5 +55,21 @@ namespace RssReader {
         private void btRefresh_Click(object sender, EventArgs e) {
             wbBrowser.Refresh();
         }
+
+        private void rbRss1_CheckedChanged(object sender, EventArgs e) {
+            tbUrl.Text = "https://news.yahoo.co.jp/rss/media/gtv/all.xml";
+        }
+
+        private void rbRss2_CheckedChanged(object sender, EventArgs e) {
+            tbUrl.Text = "https://news.yahoo.co.jp/rss/media/jomo/all.xml";
+        }
+
+        private void rbRss3_CheckedChanged(object sender, EventArgs e) {
+            tbUrl.Text = "https://news.yahoo.co.jp/rss/media/gamespav/all.xml";
+        }
+
+        private void rbRss4_CheckedChanged(object sender, EventArgs e) {
+            tbUrl.Text = "https://news.yahoo.co.jp/rss/media/anmanmv/all.xml";
+        }
     }
 }

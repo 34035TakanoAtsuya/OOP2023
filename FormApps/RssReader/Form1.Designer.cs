@@ -32,14 +32,18 @@ namespace RssReader {
             this.btForward = new System.Windows.Forms.Button();
             this.btRefresh = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.rbRss4 = new System.Windows.Forms.RadioButton();
+            this.rbRss1 = new System.Windows.Forms.RadioButton();
+            this.rbRss2 = new System.Windows.Forms.RadioButton();
+            this.rbRss3 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // tbUrl
             // 
-            this.tbUrl.Font = new System.Drawing.Font("Matura MT Script Capitals", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUrl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(12, 8);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(1110, 33);
+            this.tbUrl.Size = new System.Drawing.Size(1110, 41);
             this.tbUrl.TabIndex = 0;
             // 
             // btGet
@@ -57,30 +61,30 @@ namespace RssReader {
             // lbRssTitle
             // 
             this.lbRssTitle.BackColor = System.Drawing.Color.Black;
-            this.lbRssTitle.Font = new System.Drawing.Font("Viner Hand ITC", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRssTitle.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRssTitle.ForeColor = System.Drawing.Color.Aqua;
             this.lbRssTitle.FormattingEnabled = true;
-            this.lbRssTitle.ItemHeight = 19;
+            this.lbRssTitle.ItemHeight = 28;
             this.lbRssTitle.Location = new System.Drawing.Point(12, 47);
             this.lbRssTitle.Name = "lbRssTitle";
-            this.lbRssTitle.Size = new System.Drawing.Size(1243, 137);
+            this.lbRssTitle.Size = new System.Drawing.Size(1243, 116);
             this.lbRssTitle.TabIndex = 2;
             this.lbRssTitle.SelectedIndexChanged += new System.EventHandler(this.lbRssTitle_SelectedIndexChanged);
             // 
             // wbBrowser
             // 
-            this.wbBrowser.Location = new System.Drawing.Point(12, 229);
+            this.wbBrowser.Location = new System.Drawing.Point(12, 208);
             this.wbBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbBrowser.Name = "wbBrowser";
             this.wbBrowser.ScriptErrorsSuppressed = true;
-            this.wbBrowser.Size = new System.Drawing.Size(1243, 594);
+            this.wbBrowser.Size = new System.Drawing.Size(1110, 615);
             this.wbBrowser.TabIndex = 3;
             // 
             // btBack
             // 
             this.btBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btBack.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btBack.Location = new System.Drawing.Point(12, 190);
+            this.btBack.Location = new System.Drawing.Point(12, 169);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(41, 33);
             this.btBack.TabIndex = 4;
@@ -92,7 +96,7 @@ namespace RssReader {
             // 
             this.btForward.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btForward.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btForward.Location = new System.Drawing.Point(59, 190);
+            this.btForward.Location = new System.Drawing.Point(59, 169);
             this.btForward.Name = "btForward";
             this.btForward.Size = new System.Drawing.Size(39, 33);
             this.btForward.TabIndex = 5;
@@ -104,7 +108,7 @@ namespace RssReader {
             // 
             this.btRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btRefresh.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btRefresh.Location = new System.Drawing.Point(104, 190);
+            this.btRefresh.Location = new System.Drawing.Point(104, 169);
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(38, 33);
             this.btRefresh.TabIndex = 6;
@@ -114,21 +118,77 @@ namespace RssReader {
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button1.ForeColor = System.Drawing.Color.Gold;
-            this.button1.Location = new System.Drawing.Point(148, 190);
+            this.button1.Location = new System.Drawing.Point(1125, 208);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(38, 33);
+            this.button1.Size = new System.Drawing.Size(130, 40);
             this.button1.TabIndex = 7;
-            this.button1.Text = "★";
+            this.button1.Text = "★お気に入り★";
             this.button1.UseVisualStyleBackColor = false;
+            // 
+            // rbRss4
+            // 
+            this.rbRss4.AutoSize = true;
+            this.rbRss4.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbRss4.Location = new System.Drawing.Point(1125, 418);
+            this.rbRss4.Name = "rbRss4";
+            this.rbRss4.Size = new System.Drawing.Size(101, 37);
+            this.rbRss4.TabIndex = 8;
+            this.rbRss4.TabStop = true;
+            this.rbRss4.Text = "Anime!";
+            this.rbRss4.UseVisualStyleBackColor = true;
+            this.rbRss4.CheckedChanged += new System.EventHandler(this.rbRss4_CheckedChanged);
+            // 
+            // rbRss1
+            // 
+            this.rbRss1.AutoSize = true;
+            this.rbRss1.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbRss1.Location = new System.Drawing.Point(1125, 289);
+            this.rbRss1.Name = "rbRss1";
+            this.rbRss1.Size = new System.Drawing.Size(130, 37);
+            this.rbRss1.TabIndex = 9;
+            this.rbRss1.TabStop = true;
+            this.rbRss1.Text = "GunmaTV";
+            this.rbRss1.UseVisualStyleBackColor = true;
+            this.rbRss1.CheckedChanged += new System.EventHandler(this.rbRss1_CheckedChanged);
+            // 
+            // rbRss2
+            // 
+            this.rbRss2.AutoSize = true;
+            this.rbRss2.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbRss2.Location = new System.Drawing.Point(1125, 332);
+            this.rbRss2.Name = "rbRss2";
+            this.rbRss2.Size = new System.Drawing.Size(142, 37);
+            this.rbRss2.TabIndex = 10;
+            this.rbRss2.TabStop = true;
+            this.rbRss2.Text = "JomoMedia";
+            this.rbRss2.UseVisualStyleBackColor = true;
+            this.rbRss2.CheckedChanged += new System.EventHandler(this.rbRss2_CheckedChanged);
+            // 
+            // rbRss3
+            // 
+            this.rbRss3.AutoSize = true;
+            this.rbRss3.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbRss3.Location = new System.Drawing.Point(1125, 375);
+            this.rbRss3.Name = "rbRss3";
+            this.rbRss3.Size = new System.Drawing.Size(119, 37);
+            this.rbRss3.TabIndex = 11;
+            this.rbRss3.TabStop = true;
+            this.rbRss3.Text = "Game🎮";
+            this.rbRss3.UseVisualStyleBackColor = true;
+            this.rbRss3.CheckedChanged += new System.EventHandler(this.rbRss3_CheckedChanged);
             // 
             // btFavorite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1267, 835);
+            this.Controls.Add(this.rbRss3);
+            this.Controls.Add(this.rbRss2);
+            this.Controls.Add(this.rbRss1);
+            this.Controls.Add(this.rbRss4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btRefresh);
             this.Controls.Add(this.btForward);
@@ -154,6 +214,10 @@ namespace RssReader {
         private System.Windows.Forms.Button btForward;
         private System.Windows.Forms.Button btRefresh;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton rbRss4;
+        private System.Windows.Forms.RadioButton rbRss1;
+        private System.Windows.Forms.RadioButton rbRss2;
+        private System.Windows.Forms.RadioButton rbRss3;
     }
 }
 
