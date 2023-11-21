@@ -24,10 +24,10 @@ namespace ColorChecker {
             DataContext = GetColorList();
         }
 
-        private void rSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            Color color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
-            SolidColorBrush bursh = new SolidColorBrush(color);
-            colorArea.Background = bursh;
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            SolidColorBrush scb = new SolidColorBrush();
+            scb.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
+            colorArea.Background = scb;
         }
 
         private MyColor[] GetColorList() {
@@ -50,17 +50,40 @@ namespace ColorChecker {
             public Color Color { get; set; }
             public string Name { get; set; }
         }
+        List<MyColor> myColors = new List<MyColor>();
+
+        public class stockColor {
+            public int R { get; set; }
+            public int G { get; set; }
+            public int B { get; set; }
+        }
 
         private void StockButton_Click(object sender, RoutedEventArgs e) {
+            var colorlist = GetColorList();
             var stock = String.Format("R {0} G {1} B {2}",rSlider.Value,gSlider.Value,bSlider.Value);
-            ListBox.Items.Add(stock);
+            var colors = colorlist.FirstOrDefault(x => x.Color == ((SolidColorBrush)colorArea.Background).Color)?.Name ?? stock;
+            MyColor c = new MyColor { Color = ((SolidColorBrush)colorArea.Background).Color, Name = colors };
+            myColors.Add(c);
+            ListBox.Items.Add(c.Name);
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var colorlist = GetColorList();
+
+            foreach (var colorlists in colorlist) {
+                if (ListBox.SelectedItem.ToString() == colorlists.Name) {
+                    rText.Text = colorlists.Color.R.ToString();
+                    gText.Text = colorlists.Color.G.ToString();
+                    bText.Text = colorlists.Color.B.ToString();
+                }
+            }
             string[] lb = ListBox.SelectedItem.ToString().Split(' ');
-            rText.Text = lb[1];
-            gText.Text = lb[3];
-            bText.Text = lb[5];
+
+            if (lb.Length > 4) {
+                rText.Text = lb[1];
+                gText.Text = lb[3];
+                bText.Text = lb[5];
+            }
         }
     }
 }

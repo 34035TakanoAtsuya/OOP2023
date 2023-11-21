@@ -20,15 +20,15 @@
                 <RowDefinition Height="96*"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="R" VerticalAlignment="Bottom" Height="30" Width="17" FontSize="20"/>
-            <Slider x:Name="rSlider" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Height="30" TickPlacement="TopLeft" Maximum="255" ValueChanged="rSlider_ValueChanged" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="rSlider" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Height="30" TickPlacement="TopLeft" Maximum="255" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
             <TextBox x:Name="rText" Grid.Row="0" Grid.Column="2"  Text="{Binding ElementName=rSlider,Path=Value, StringFormat={}{0:N0},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Height="30" Margin="0,0,3,0" VerticalContentAlignment="Center" FontSize="16" />
 
             <TextBlock HorizontalAlignment="Right" Grid.Row="1" TextWrapping="Wrap" Text="G" VerticalAlignment="Bottom" Height="30" Width="17" FontSize="20"/>
-            <Slider x:Name="gSlider" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Height="30" TickPlacement="TopLeft" Maximum="255" ValueChanged="rSlider_ValueChanged" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="gSlider" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Height="30" TickPlacement="TopLeft" Maximum="255" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
             <TextBox x:Name="gText" Grid.Column="2" Grid.Row="1" Text="{Binding ElementName=gSlider,Path=Value, StringFormat={}{0:N0},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Margin="0,0,3,0" FontSize="16"/>
 
             <TextBlock HorizontalAlignment="Right" Grid.Row="2" TextWrapping="Wrap" Text="B" VerticalAlignment="Bottom" Height="30" Width="17" FontSize="20"/>
-            <Slider x:Name="bSlider" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="0" Height="29" TickPlacement="TopLeft" Maximum="255" ValueChanged="rSlider_ValueChanged" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="bSlider" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="0" Height="29" TickPlacement="TopLeft" Maximum="255" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
             <TextBox x:Name="bText" Grid.Row="2" Grid.Column="2"  Text="{Binding ElementName=bSlider,Path=Value, StringFormat={}{0:N0},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Height="30" Margin="0,0,3,0" VerticalContentAlignment="Center" FontSize="16"/>
 
             <ComboBox  ItemsSource="{Binding}" SelectedValue="{Binding Color}" Grid.Column="1"  Margin="0,30,40,30" Grid.Row="3" Width="187" Grid.ColumnSpan="2" SelectionChanged="ComboBox_SelectionChanged">
